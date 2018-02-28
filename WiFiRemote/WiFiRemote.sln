@@ -7,10 +7,18 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WiFiRemote", "WiFiRemote\Wi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EspHomeBase", "..\libraries\EspHomeBase\EspHomeBase.vcxitems", "{B3DB02C3-0ABD-4B7B-8B76-9FCF51EEF35C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArduinoJson", "..\libraries\ArduinoJson\ArduinoJson.vcxitems", "{FBEBC114-5528-4682-B889-F62124EDF4F9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DNSServer", "C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\DNSServer\DNSServer.vcxitems", "{6C06D683-E838-42B0-85DE-7FB147990AE2}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\DNSServer\DNSServer.vcxitems*{6c06d683-e838-42b0-85de-7fb147990ae2}*SharedItemsImports = 9
 		..\libraries\EspHomeBase\EspHomeBase.vcxitems*{b3db02c3-0abd-4b7b-8b76-9fcf51eef35c}*SharedItemsImports = 9
+		C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\DNSServer\DNSServer.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\libraries\ArduinoJson\ArduinoJson.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
 		..\libraries\EspHomeBase\EspHomeBase.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\libraries\ArduinoJson\ArduinoJson.vcxitems*{fbebc114-5528-4682-b889-f62124edf4f9}*SharedItemsImports = 9
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86

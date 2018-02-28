@@ -3,6 +3,7 @@
  Created:	27.02.2018 17:27:12
  Author:	olli
 */
+
 #include <EspHomeBase.h>
 ConfigServer *s = nullptr;
 // the setup function runs once when you press reset or power the board
