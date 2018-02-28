@@ -1,0 +1,6 @@
+[submodule "libraries/EspHomeBase/external/ArduinoJson"]
+	path = libraries/EspHomeBase/external/ArduinoJson
+	url = https://github.com/bblanchon/ArduinoJson.git
+[submodule "libraries/EspHomeBase/external/pubsubclient"]
+	path = libraries/EspHomeBase/external/pubsubclient
+	url = https://github.com/knolleary/pubsubclient.git
