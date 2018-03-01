@@ -9,6 +9,11 @@
 	#include "WProgram.h"
 #endif
 #include <FS.h>
+#if defined(ARDUINO_ARCH_ESP32)
+#include <SPIFFS.h>
+#include <vfs_api.h>
+#include <FSImpl.h>
+#endif
 #include <ArduinoJson.h>
 #define TEMP_SIZE 2000
 extern char tempBuf[];

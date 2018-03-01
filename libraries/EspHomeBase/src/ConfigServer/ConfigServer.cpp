@@ -7,7 +7,7 @@
 #include "ConfigServer.h"
 
 ConfigServer *ConfigServer::_instanz = 0;
-ESP8266WebServer *ConfigServer::server = 0;
+AsyncWebServer *ConfigServer::server = 0;
 char pageBuf[MAX_PAGE_SIZE];
 char temp[800];
 replaceEntry ConfigServer::replaceList[10];
@@ -16,8 +16,8 @@ DNSServer dnsServer;
 
 ConfigServer::ConfigServer()
 {
-	static ESP8266WebServer temp(80);
-	server = &temp;
+	static AsyncWebServer server(80);
+	//server = &temp;
 }
 
 ConfigServer::~ConfigServer()
@@ -30,7 +30,7 @@ void ConfigServer::start()
 		server->on("/", HTTP_GET, handleConfig);
 		server->on("/set", HTTP_POST, handleSet);
 		server->onNotFound(handleFile);
-		ESP.wdtFeed();
+		feedTheDog();
 		server->begin();
 	}
 	else {
@@ -51,9 +51,10 @@ ConfigServer *ConfigServer::getInstance()
 void ConfigServer::handleClient()
 {
 	if(server != 0){
-		server->handleClient();
+		//server->handleClient();
 		dnsServer.processNextRequest();
-		ESP.wdtFeed();
+		
+		feedTheDog();
 	}
 }
 
@@ -70,59 +71,60 @@ bool ConfigServer::addReplaceHandler(const char needle[], replaceHandler handler
 	return false;
 }
 
-void ConfigServer::handleConfig()
+void ConfigServer::handleConfig(AsyncWebServerRequest *req)
 {
 	if (fileExists("/config.html")) {
 		int sz = readFile("/config.html", tempBuf, TEMP_SIZE);
 		if (sz > 0) {
 			int rep = ConfigServer::getInstance()->replacer(pageBuf, tempBuf);
 			if (rep > 0) {
-				server->send(200, "text/html", pageBuf);
+				req->send(200, "text/html", pageBuf);
 			}
 			else {
-				server->send(500, "text/html", "File parsing failed!");
+				req->send(500, "text/html", "File parsing failed!");
 			}
 		}
 		else {
-			server->send(500, "text/html", "File reading failed!");
+			req->send(500, "text/html", "File reading failed!");
 		}
 	}
 	else {
-		server->send(404, "text/html", "File not found!");
+		req->send(404, "text/html", "File not found!");
 	}
 }
 
-void ConfigServer::handleSet()
+void ConfigServer::handleSet(AsyncWebServerRequest *req)
 {
-	int num = ConfigServer::server->args();
+	int num = req->args();
 	for (int i = 0; i < num; i++) {
-		if (strcmp(ConfigServer::server->argName(i).c_str(), "submit") != 0) {
-			setConfigParam(ConfigServer::server->argName(i).c_str(), ConfigServer::server->arg(i).c_str());
+		if (strcmp(req->argName(i).c_str(), "submit") != 0) {
+			setConfigParam(req->argName(i).c_str(), req->arg(i).c_str());
 		}
 	}
 	setConfigParam("set", "1");
-	ConfigServer::server->send(200, "text/html", "Configuration saved successfully.");
+	req->send(200, "text/html", "Configuration saved successfully.");
 }
 
-void ConfigServer::handleFile()
+void ConfigServer::handleFile(AsyncWebServerRequest *req)
 {
-	if (fileExists(ConfigServer::server->uri().c_str())) {
-		if (fileSize(ConfigServer::server->uri().c_str()) <= MAX_PAGE_SIZE) {
-			int sz = readFile(ConfigServer::server->uri().c_str(), pageBuf, MAX_PAGE_SIZE);
+	if (fileExists(req->url().c_str())) {
+		if (fileSize(req->url().c_str()) <= MAX_PAGE_SIZE) {
+			int sz = readFile(req->url().c_str(), pageBuf, MAX_PAGE_SIZE);
 			if (sz > -1) {
-				server->send(200, "text/html", pageBuf);
+				
+				//server->send(200, "text/html", pageBuf);
 			}
 			else {
-				server->send(500, "text/html", "File could not be opened");
+				req->send(500, "text/html", "File could not be opened");
 			}
 		}
 		else {
 			/// TODO: Handle larger files in chunks, meanwhile return internal server error
-			server->send(500, "text/html", "File is too large to be served!");
+			req->send(500, "text/html", "File is too large to be served!");
 		}
 	}
 	else {
-		server->send(404, "text/html", "File not found!");
+		req->send(404, "text/html", "File not found!");
 	}
 }
 
@@ -132,17 +134,24 @@ int ConfigServer::replacer(char * buf, char * src)
 	for (int i = 0; i < replaceCount; i++) {
 		char *placeholder = strstr(buf, ConfigServer::replaceList[i].needle);
 		int nLen = strlen(ConfigServer::replaceList[i].needle);
-		ESP.wdtFeed();
+		feedTheDog();
 		if (placeholder) {
 			int index = (int)(placeholder - buf);
 			int add = ConfigServer::replaceList[i].handler(temp);
 			strcpy(src, buf + index + nLen);
 			buf[index] = '\0';
 			strcat(buf, temp);
-			ESP.wdtFeed();
+			feedTheDog();
 			strcat(buf, src);
-			ESP.wdtFeed();
+			feedTheDog();
 		}
 	}
 	return strlen(buf);
+}
+
+void ConfigServer::feedTheDog()
+{
+#if defined(ARDUINO_ARCH_ESP8266)
+	ESP.wdtFeed();
+#endif
 }

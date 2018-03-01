@@ -16,5 +16,7 @@
 #include "ConfigServer\ConfigServer.h"
 #include "FileAccess\FileAccess.h"
 
+
+#include <PubSubClient.h>
 #endif
 
