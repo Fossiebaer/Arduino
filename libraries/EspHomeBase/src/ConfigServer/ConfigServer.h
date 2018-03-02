@@ -52,7 +52,7 @@
 
 #define MAX_REPLACERS 10
 
-typedef int (*replaceHandler)(char *buf);
+typedef int (*replaceHandler)(char *buf, const char *needle);
 typedef struct replaceEntry {
 	char needle[12] = "";
 	replaceHandler handler = nullptr;

@@ -30,7 +30,7 @@ enum MessageType {
 	STATE_SET
 };
 
-typedef void (*MqttCallback)(byte* payload, unsigned int length);
+typedef void (*MqttCallback)(char *topic, byte* payload, unsigned int length);
 typedef void(*HttpCallback)(AsyncWebServerRequest *req);
 
 class EspHomeBase {
@@ -38,7 +38,7 @@ public:
 	EspHomeBase *getInstance();
 	void setMode(DeviceMode mode);
 	void registerMqttCallback(const char *channel, MqttCallback cb);
-	void registerHttpCallback(const char *url, const char *method, HttpCallback cb);
+	void registerHttpCallback(const char *url, WebRequestMethod method, HttpCallback cb);
 	void sendMqttMessage(MessageType cmd, const char *channel, const char *val);  
 private:
 	EspHomeBase();
@@ -46,6 +46,9 @@ private:
 	DeviceMode mode;
 	static EspHomeBase *_instance;
 	static ConfigServer *_server;
+	static DNSServer *_dnsServer;
+	static WiFiClient *_netclient;
+	static PubSubClient *_mqttclient;
 	DeviceMode devMode;
 };
 #endif

@@ -137,7 +137,7 @@ int ConfigServer::replacer(char * buf, char * src)
 		feedTheDog();
 		if (placeholder) {
 			int index = (int)(placeholder - buf);
-			int add = ConfigServer::replaceList[i].handler(temp);
+			int add = ConfigServer::replaceList[i].handler(temp, ConfigServer::replaceList[i].needle);
 			strcpy(src, buf + index + nLen);
 			buf[index] = '\0';
 			strcat(buf, temp);
