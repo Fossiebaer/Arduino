@@ -61,9 +61,10 @@ typedef struct replaceEntry {
 class ConfigServer {
 public:
 	~ConfigServer();
-	void start();
+	void startConfig();
 	static ConfigServer *getInstance();
 	void handleClient();
+	int replacer(char * buf, char * src);
 	//static ESP8266WebServer *server;
 	static AsyncWebServer *server;
 	bool addReplaceHandler(const char needle[], replaceHandler handler);
@@ -74,7 +75,6 @@ private:
 	static void handleConfig(AsyncWebServerRequest *req);
 	static void handleSet(AsyncWebServerRequest *req);
 	static void handleFile(AsyncWebServerRequest *req);
-	int replacer(char * buf, char * src);
 	static ConfigServer *_instanz;
 	void feedTheDog();
 };

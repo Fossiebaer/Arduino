@@ -24,7 +24,7 @@ ConfigServer::~ConfigServer()
 {
 }
 
-void ConfigServer::start()
+void ConfigServer::startConfig()
 {
 	if (server != 0) {
 		server->on("/", HTTP_GET, handleConfig);
