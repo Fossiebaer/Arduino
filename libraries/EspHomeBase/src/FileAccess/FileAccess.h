@@ -15,7 +15,7 @@
 #include <FSImpl.h>
 #endif
 #include <ArduinoJson.h>
-#define TEMP_SIZE 2000
+#define TEMP_SIZE 4000
 extern char tempBuf[];
 bool fileExists(const char *name);
 int fileSize(const char *name);

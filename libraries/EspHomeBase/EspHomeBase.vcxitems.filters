@@ -36,4 +36,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)data\config.html" />
+    <None Include="$(MSBuildThisFileDirectory)data\config.json" />
+    <None Include="$(MSBuildThisFileDirectory)data\fs_init" />
+    <None Include="$(MSBuildThisFileDirectory)data\uuid" />
+  </ItemGroup>
 </Project>

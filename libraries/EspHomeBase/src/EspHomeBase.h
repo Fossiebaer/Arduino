@@ -13,10 +13,40 @@
 #else
 	#include "WProgram.h"
 #endif
-#include "ConfigServer\ConfigServer.h"
 #include "FileAccess\FileAccess.h"
-
-
+#include "ConfigServer\ConfigServer.h"
 #include <PubSubClient.h>
+
+enum DeviceMode {
+	MODE_HTTP=0,
+	MODE_MQTT=1,
+	MODE_CONFIG=2,
+	MODE_UNSPEC=3
+};
+
+enum MessageType {
+	CMD_SET,
+	STATE_GET,
+	STATE_SET
+};
+
+typedef void (*MqttCallback)(byte* payload, unsigned int length);
+typedef void(*HttpCallback)(AsyncWebServerRequest *req);
+
+class EspHomeBase {
+public:
+	EspHomeBase *getInstance();
+	void setMode(DeviceMode mode);
+	void registerMqttCallback(const char *channel, MqttCallback cb);
+	void registerHttpCallback(const char *url, const char *method, HttpCallback cb);
+	void sendMqttMessage(MessageType cmd, const char *channel, const char *val);  
+private:
+	EspHomeBase();
+	~EspHomeBase();
+	DeviceMode mode;
+	static EspHomeBase *_instance;
+	static ConfigServer *_server;
+	DeviceMode devMode;
+};
 #endif
 

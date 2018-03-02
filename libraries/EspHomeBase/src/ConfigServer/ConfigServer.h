@@ -48,7 +48,7 @@
 #include <AsyncJson.h>
 
 #include "FileAccess\FileAccess.h"
-#include "EspHomeBase.h"
+//#include "EspHomeBase.h"
 
 #define MAX_REPLACERS 10
 
@@ -79,7 +79,7 @@ private:
 	void feedTheDog();
 };
 
-#define MAX_PAGE_SIZE 2200
+#define MAX_PAGE_SIZE 6000
 extern char pageBuf[];
 
 #endif

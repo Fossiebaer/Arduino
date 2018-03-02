@@ -100,4 +100,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties custom_espressif_esp32_FlashFreq="80" arduino.upload.port="COM3" custom_espressif_esp32_UploadSpeed="115200" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

@@ -28,4 +28,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)src\EspHomeBase.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)src\FileAccess\FileAccess.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)data\config.html" />
+    <None Include="$(MSBuildThisFileDirectory)data\config.json" />
+    <None Include="$(MSBuildThisFileDirectory)data\fs_init" />
+    <None Include="$(MSBuildThisFileDirectory)data\uuid" />
+  </ItemGroup>
 </Project>

@@ -9,7 +9,7 @@
 ConfigServer *ConfigServer::_instanz = 0;
 AsyncWebServer *ConfigServer::server = 0;
 char pageBuf[MAX_PAGE_SIZE];
-char temp[800];
+char temp[1200];
 replaceEntry ConfigServer::replaceList[10];
 int ConfigServer::replaceCount = 0;
 DNSServer dnsServer;
