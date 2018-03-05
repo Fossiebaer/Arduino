@@ -54,7 +54,7 @@
 
 typedef int (*replaceHandler)(char *buf, const char *needle);
 typedef struct replaceEntry {
-	char needle[12] = "";
+	char needle[20] = "";
 	replaceHandler handler = nullptr;
 };
 
@@ -62,6 +62,8 @@ class ConfigServer {
 public:
 	~ConfigServer();
 	void startConfig();
+	void startWeb();
+	void addUrlHandler(const char *url, WebRequestMethod method, ArRequestHandlerFunction f);
 	static ConfigServer *getInstance();
 	void handleClient();
 	int replacer(char * buf, char * src);

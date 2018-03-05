@@ -4,7 +4,7 @@
 
 #include "FileAccess.h"
 
-//char tempBuf[1100]; // Instantiated in ino file
+//char tempBuf[1200]; // Instantiated in ino file
 
 bool ready = false;
 

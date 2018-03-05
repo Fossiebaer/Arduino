@@ -25,25 +25,38 @@ enum DeviceMode {
 };
 
 enum MessageType {
-	CMD_SET,
-	STATE_GET,
-	STATE_SET
+	MQTT_SET,
+	MQTT_GET,
+	MQTT_STATE
 };
 
-typedef void (*MqttCallback)(char *topic, byte* payload, unsigned int length);
+typedef void(*MqttCallback)(byte* payload, unsigned int length);
 typedef void(*HttpCallback)(AsyncWebServerRequest *req);
+
+typedef struct MqttCBEntry {
+	char channel[16];
+	MessageType type;
+	MqttCallback cb;
+};
+
 
 class EspHomeBase {
 public:
-	EspHomeBase *getInstance();
-	void setMode(DeviceMode mode);
-	void registerMqttCallback(const char *channel, MqttCallback cb);
+	static EspHomeBase *getInstance();
+	void changeMode(DeviceMode mode);
+	void registerMqttCallback(const char *channel, MessageType type, MqttCallback cb);
 	void registerHttpCallback(const char *url, WebRequestMethod method, HttpCallback cb);
-	void sendMqttMessage(MessageType cmd, const char *channel, const char *val);  
+	bool sendMqttMessage(MessageType cmd, const char *channel, const char *val);
+	void process();
+	static RTC_DATA_ATTR int bootCount;
+	static bool ready;
 private:
 	EspHomeBase();
 	~EspHomeBase();
+	static void mqttCallback(char* topic, byte* payload, unsigned int length);
 	DeviceMode mode;
+	static int cbCount;
+	static MqttCBEntry callbacks[];
 	static EspHomeBase *_instance;
 	static ConfigServer *_server;
 	static DNSServer *_dnsServer;

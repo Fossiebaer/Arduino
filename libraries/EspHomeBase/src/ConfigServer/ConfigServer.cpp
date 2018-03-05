@@ -9,15 +9,15 @@
 ConfigServer *ConfigServer::_instanz = 0;
 AsyncWebServer *ConfigServer::server = 0;
 char pageBuf[MAX_PAGE_SIZE];
-char temp[1200];
 replaceEntry ConfigServer::replaceList[10];
 int ConfigServer::replaceCount = 0;
 DNSServer dnsServer;
+char repBuf[500];
 
 ConfigServer::ConfigServer()
 {
-	static AsyncWebServer server(80);
-	//server = &temp;
+	static AsyncWebServer tempserver(80);
+	server = &tempserver;
 }
 
 ConfigServer::~ConfigServer()
@@ -32,12 +32,28 @@ void ConfigServer::startConfig()
 		server->onNotFound(handleFile);
 		feedTheDog();
 		server->begin();
+		Serial.println("Configserver started...");
 	}
 	else {
 		Serial.println("No Server Instance.");
 	}
 	IPAddress myIP = WiFi.softAPIP();
 	dnsServer.start(53, "*", myIP);
+}
+
+void ConfigServer::startWeb()
+{
+	if (server != 0) {
+		server->begin();
+	}
+}
+
+void ConfigServer::addUrlHandler(const char *url, WebRequestMethod method, ArRequestHandlerFunction f)
+{
+	if (server != 0) {
+		server->on(url, method, f);
+		//server->on(url, "text/html", );
+	}
 }
 
 ConfigServer *ConfigServer::getInstance()
@@ -62,7 +78,7 @@ bool ConfigServer::addReplaceHandler(const char needle[], replaceHandler handler
 {
 	if (replaceCount < MAX_REPLACERS) {
 		replaceEntry entry;
-		strncpy(entry.needle, needle, 9);
+		strncpy(entry.needle, needle, 19);
 		entry.handler = handler;
 		replaceList[replaceCount] = entry;
 		replaceCount++;
@@ -75,6 +91,7 @@ void ConfigServer::handleConfig(AsyncWebServerRequest *req)
 {
 	if (fileExists("/config.html")) {
 		int sz = readFile("/config.html", tempBuf, TEMP_SIZE);
+		Serial.println(tempBuf);
 		if (sz > 0) {
 			int rep = ConfigServer::getInstance()->replacer(pageBuf, tempBuf);
 			if (rep > 0) {
@@ -107,12 +124,15 @@ void ConfigServer::handleSet(AsyncWebServerRequest *req)
 
 void ConfigServer::handleFile(AsyncWebServerRequest *req)
 {
+	Serial.print("Handle file ");
+	Serial.println(req->url().c_str());
 	if (fileExists(req->url().c_str())) {
+		Serial.println("File found");
 		if (fileSize(req->url().c_str()) <= MAX_PAGE_SIZE) {
 			int sz = readFile(req->url().c_str(), pageBuf, MAX_PAGE_SIZE);
+			Serial.println("File opened.");
 			if (sz > -1) {
-				
-				//server->send(200, "text/html", pageBuf);
+				req->send(200, "text/html", pageBuf);
 			}
 			else {
 				req->send(500, "text/html", "File could not be opened");
@@ -137,15 +157,20 @@ int ConfigServer::replacer(char * buf, char * src)
 		feedTheDog();
 		if (placeholder) {
 			int index = (int)(placeholder - buf);
-			int add = ConfigServer::replaceList[i].handler(temp, ConfigServer::replaceList[i].needle);
+			int add = ConfigServer::replaceList[i].handler(repBuf, ConfigServer::replaceList[i].needle);
+			Serial.println("Replacing complete, merging");
 			strcpy(src, buf + index + nLen);
 			buf[index] = '\0';
-			strcat(buf, temp);
+			if (add > 0) {
+				strcat(buf, repBuf);
+			}
 			feedTheDog();
 			strcat(buf, src);
+			Serial.println("Merging complete");
 			feedTheDog();
 		}
 	}
+	Serial.println(buf);
 	return strlen(buf);
 }
 
