@@ -49,7 +49,7 @@ void EspHomeBase::changeMode(DeviceMode mode)
 
 void EspHomeBase::registerMqttCallback(const char * channel, MessageType type, MqttCallback cb)
 {
-	if (cbCount < 5) {
+	if (devMode == MODE_MQTT && ready && cbCount < 5) {
 		for (int i = 0; i < cbCount; i++) {
 			if (strcmp(channel, callbacks[i].channel) == 0) {
 				return;
@@ -122,6 +122,7 @@ EspHomeBase::EspHomeBase()
 	int rsc = EEPROM.read(1);
 	int test = EEPROM.read(0);
 	bootCount++;
+	rsc++;
 	EEPROM.write(1, rsc);
 	EEPROM.commit();
 	if (rsc > 5){
@@ -182,7 +183,7 @@ EspHomeBase::EspHomeBase()
 #endif
 		WiFi.begin(getConfigParam("ssid_box"), getConfigParam("passwd"));
 		Serial.print("Connecting WiFi, reset ");
-		Serial.printf("%d", 5 - bootCount);
+		Serial.printf("%d", 5 - EEPROM.read(1));
 		Serial.println(" times to enter config mode.");
 		while (WiFi.status() != WL_CONNECTED) {
 			Serial.print(".");
@@ -315,7 +316,7 @@ void WiFiEvent(WiFiEvent_t event)
 {
 	Serial.printf("[WiFi-event] event: %d\n", event);
 	switch (event) {
-	case SYSTEM_EVENT_STA_CONNECTED:
+		case SYSTEM_EVENT_STA_GOT_IP:
 		EspHomeBase::bootCount = 0;
 		EEPROM.write(1, 0);
 		EEPROM.commit();
