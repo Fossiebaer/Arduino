@@ -27,14 +27,12 @@ void setup() {
 	Serial.println("");
 	sent = false;
 	_server = EspHomeBase::getInstance();
-	//_server->changeMode(MODE_MQTT);
 	while (!EspHomeBase::ready) {
 		sleep(5);
 	}
+	_server->changeMode(MODE_MQTT);
 	Serial.println("Register MQTT callback...");
 	_server->registerMqttCallback("ON", MQTT_STATE, AckCallback);
-	
-	
 }
 
 // the loop function runs over and over again until power down or reset

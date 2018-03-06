@@ -41,7 +41,9 @@ EspHomeBase * EspHomeBase::getInstance()
 
 void EspHomeBase::changeMode(DeviceMode mode)
 {
-	if (mode != devMode) {
+	uint8_t v = EEPROM.read(2);
+	DeviceMode m = static_cast<DeviceMode>(v);
+	if (mode != m) {
 		devMode = mode;
 		EEPROM.write(3, (uint8_t)(mode & 0x0F));
 		EEPROM.commit();
@@ -148,9 +150,9 @@ EspHomeBase::EspHomeBase()
 	}
 	if (devMode == MODE_UNSPEC) {
 		devMode = MODE_CONFIG;
-		uint8_t m = (int)devMode & 0x0F;
+		//uint8_t m = (int)devMode & 0x0F;
 		EEPROM.write(0, 1);
-		EEPROM.write(2, m);
+		//EEPROM.write(2, m);
 		EEPROM.commit();
 	}
 	if (devMode == MODE_CONFIG) {
@@ -168,12 +170,13 @@ EspHomeBase::EspHomeBase()
 		_server->addReplaceHandler("%mqtt_top_topic%", replaceFunc);
 		_server->addReplaceHandler("%mqtt_dev_topic%", replaceFunc);
 		_server->startConfig();
-		devMode = MODE_MQTT;
-		uint8_t m = (int)devMode & 0x0F;
+		uint8_t m = EEPROM.read(2);
+		devMode = static_cast<DeviceMode>(m);
 		EEPROM.write(0, 1);
-		EEPROM.write(2, m);
+		//EEPROM.write(2, m);
 		EEPROM.write(1, 0);
 		EEPROM.commit();
+
 	} else {
 		WiFi.mode(WIFI_STA);
 #if defined(ARDUINO_ARCH_ESP32)
