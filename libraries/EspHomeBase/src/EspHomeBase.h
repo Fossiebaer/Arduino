@@ -20,8 +20,9 @@
 enum DeviceMode {
 	MODE_HTTP=0,
 	MODE_MQTT=1,
-	MODE_CONFIG=2,
-	MODE_UNSPEC=3
+	MODE_AP_HTTP=2,
+	MODE_CONFIG=3,
+	MODE_UNSPEC=4
 };
 
 enum MessageType {

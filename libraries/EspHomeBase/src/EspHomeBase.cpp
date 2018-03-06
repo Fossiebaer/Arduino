@@ -137,7 +137,7 @@ EspHomeBase::EspHomeBase()
 	if (test == 1) {
 		int m = EEPROM.read(2);
 		const char *set = getConfigParam("set");
-		if (m <= 3 && strcmp(set, "1") == 0 ) {
+		if (m <= 4 && strcmp(set, "1") == 0 ) {
 			Serial.println("Configuration present, starting normal mode...");
 			devMode = static_cast<DeviceMode>(m);
 		}
@@ -177,7 +177,7 @@ EspHomeBase::EspHomeBase()
 		EEPROM.write(1, 0);
 		EEPROM.commit();
 
-	} else {
+	} else if (devMode == MODE_MQTT || devMode == MODE_HTTP){
 		WiFi.mode(WIFI_STA);
 #if defined(ARDUINO_ARCH_ESP32)
 		WiFi.onEvent(WiFiEvent);
@@ -244,8 +244,15 @@ EspHomeBase::EspHomeBase()
 			}
 		}
 		if (devMode == MODE_HTTP) {
-
+			EspHomeBase::_server = ConfigServer::getInstance();
+			_server->startWeb();
 		}
+	}
+	else if (devMode == MODE_AP_HTTP) {
+		WiFi.mode(WIFI_MODE_AP);
+		WiFi.softAP(getConfigParam("ssid_box"), getConfigParam("passwd"));
+		EspHomeBase::_server = ConfigServer::getInstance();
+		_server->startWeb();
 	}
 	ready = true;
 	Serial.println("EspHomeBase ready!");
