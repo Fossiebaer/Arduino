@@ -22,6 +22,7 @@
 #include <ESP8266WiFiGeneric.h>
 #include <ESP8266WiFiAP.h>
 #include <ESP8266WiFi.h>
+#include <Hash.h>
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFiUdp.h>
 #include <WiFiType.h>

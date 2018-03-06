@@ -48,7 +48,6 @@ public:
 	void registerHttpCallback(const char *url, WebRequestMethod method, HttpCallback cb);
 	bool sendMqttMessage(MessageType cmd, const char *channel, const char *val);
 	void process();
-	static RTC_DATA_ATTR int bootCount;
 	static bool ready;
 private:
 	EspHomeBase();

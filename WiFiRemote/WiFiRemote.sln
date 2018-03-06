@@ -1,24 +1,52 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WiFiRemote", "WiFiRemote\WiFiRemote.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EspHomeBase", "..\libraries\EspHomeBase\EspHomeBase.vcxitems", "{B3DB02C3-0ABD-4B7B-8B76-9FCF51EEF35C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArduinoJson", "..\libraries\ArduinoJson\ArduinoJson.vcxitems", "{FBEBC114-5528-4682-B889-F62124EDF4F9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArduinoJson", "..\libraries\ArduinoJson\ArduinoJson.vcxitems", "{129552E1-CE94-4AA1-ACF8-3A96F51A3113}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DNSServer", "C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\DNSServer\DNSServer.vcxitems", "{6C06D683-E838-42B0-85DE-7FB147990AE2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ESPAsyncTCP", "..\libraries\ESPAsyncTCP\ESPAsyncTCP.vcxitems", "{9C7959F2-7699-46DF-8CFD-81ED66EFA988}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ESPAsyncWebServer", "..\libraries\ESPAsyncWebServer\ESPAsyncWebServer.vcxitems", "{9C17D7A3-1A5B-4C4B-A690-66A4AE92A336}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PubSubClient", "..\libraries\PubSubClient\PubSubClient.vcxitems", "{B1C1850E-1B9D-4575-80D3-3855010C8723}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "esp8266", "C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\esp8266\esp8266.vcxitems", "{8AF2A705-0DA7-4B5B-B799-E0B5FEC4E200}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ESP8266WiFi", "C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\ESP8266WiFi\ESP8266WiFi.vcxitems", "{2B489B45-6316-4439-87B7-DB9CF7A4062F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hash", "C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\Hash\Hash.vcxitems", "{630BFB9E-CCA8-4249-9B06-05EAC758D759}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EEPROM", "C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\EEPROM\EEPROM.vcxitems", "{B1F86D22-7C63-4F17-95DE-26AD36185460}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\libraries\ArduinoJson\ArduinoJson.vcxitems*{129552e1-ce94-4aa1-acf8-3a96f51a3113}*SharedItemsImports = 9
+		C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\ESP8266WiFi\ESP8266WiFi.vcxitems*{2b489b45-6316-4439-87b7-db9cf7a4062f}*SharedItemsImports = 9
+		C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\Hash\Hash.vcxitems*{630bfb9e-cca8-4249-9b06-05eac758d759}*SharedItemsImports = 9
 		C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\DNSServer\DNSServer.vcxitems*{6c06d683-e838-42b0-85de-7fb147990ae2}*SharedItemsImports = 9
+		C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\esp8266\esp8266.vcxitems*{8af2a705-0da7-4b5b-b799-e0b5fec4e200}*SharedItemsImports = 9
+		..\libraries\ESPAsyncWebServer\ESPAsyncWebServer.vcxitems*{9c17d7a3-1a5b-4c4b-a690-66a4ae92a336}*SharedItemsImports = 9
+		..\libraries\ESPAsyncTCP\ESPAsyncTCP.vcxitems*{9c7959f2-7699-46df-8cfd-81ed66efa988}*SharedItemsImports = 9
+		..\libraries\PubSubClient\PubSubClient.vcxitems*{b1c1850e-1b9d-4575-80d3-3855010c8723}*SharedItemsImports = 9
+		C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\EEPROM\EEPROM.vcxitems*{b1f86d22-7c63-4f17-95de-26ad36185460}*SharedItemsImports = 9
 		..\libraries\EspHomeBase\EspHomeBase.vcxitems*{b3db02c3-0abd-4b7b-8b76-9fcf51eef35c}*SharedItemsImports = 9
 		C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\DNSServer\DNSServer.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\EEPROM\EEPROM.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\ESP8266WiFi\ESP8266WiFi.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\esp8266\esp8266.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		C:\Users\olli\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.0\libraries\Hash\Hash.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
 		..\libraries\ArduinoJson\ArduinoJson.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\libraries\ESPAsyncTCP\ESPAsyncTCP.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\libraries\ESPAsyncWebServer\ESPAsyncWebServer.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
 		..\libraries\EspHomeBase\EspHomeBase.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
-		..\libraries\ArduinoJson\ArduinoJson.vcxitems*{fbebc114-5528-4682-b889-f62124edf4f9}*SharedItemsImports = 9
+		..\libraries\PubSubClient\PubSubClient.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -32,5 +60,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7EF6D3C5-B7A8-4911-9580-A3914FB4F6CA}
 	EndGlobalSection
 EndGlobal

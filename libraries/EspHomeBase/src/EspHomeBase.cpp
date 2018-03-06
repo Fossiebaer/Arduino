@@ -14,7 +14,6 @@ DNSServer *EspHomeBase::_dnsServer = 0;
 WiFiClient *EspHomeBase::_netclient;
 PubSubClient *EspHomeBase::_mqttclient = 0;
 MqttCBEntry EspHomeBase::callbacks[5];
-int EspHomeBase::bootCount = 0;
 int EspHomeBase::cbCount = 0;
 bool EspHomeBase::ready = false;
 char locBuf[500];
@@ -26,7 +25,10 @@ int getAPs(char *buf, const char *needle);
 #if defined(ARDUINO_ARCH_ESP32)
 void WiFiEvent(WiFiEvent_t event);
 #elif defined(ARDUINO_ARCH_ESP8266)
-
+WiFiEventHandler WifiConnectHandler;
+WiFiEventHandler WifiDisconnectHandler;
+void onWifiConnect(const WiFiEventStationModeGotIP &evt);
+void onWifiDisconnect(const WiFiEventStationModeDisconnected &evt);
 #endif
 
 EspHomeBase * EspHomeBase::getInstance()
@@ -121,7 +123,6 @@ EspHomeBase::EspHomeBase()
 	Serial.println("Startup...");
 	int rsc = EEPROM.read(1);
 	int test = EEPROM.read(0);
-	bootCount++;
 	rsc++;
 	EEPROM.write(1, rsc);
 	EEPROM.commit();
@@ -167,7 +168,6 @@ EspHomeBase::EspHomeBase()
 		_server->addReplaceHandler("%mqtt_top_topic%", replaceFunc);
 		_server->addReplaceHandler("%mqtt_dev_topic%", replaceFunc);
 		_server->startConfig();
-		bootCount = 0;
 		devMode = MODE_MQTT;
 		uint8_t m = (int)devMode & 0x0F;
 		EEPROM.write(0, 1);
@@ -179,7 +179,8 @@ EspHomeBase::EspHomeBase()
 #if defined(ARDUINO_ARCH_ESP32)
 		WiFi.onEvent(WiFiEvent);
 #elif defined(ARDUINO_ARCH_ESP8266)
-
+		WifiConnectHandler = WiFi.onStationModeGotIP(&onWifiConnect);
+		WifiDisconnectHandler = WiFi.onStationModeDisconnected(&onWifiDisconnect);
 #endif
 		WiFi.begin(getConfigParam("ssid_box"), getConfigParam("passwd"));
 		Serial.print("Connecting WiFi, reset ");
@@ -187,7 +188,11 @@ EspHomeBase::EspHomeBase()
 		Serial.println(" times to enter config mode.");
 		while (WiFi.status() != WL_CONNECTED) {
 			Serial.print(".");
+#if defined(ARDUINO_ARCH_ESP32)
 			sleep(1);
+#elif defined(ARDUINO_ARCH_ESP8266)
+			delay(1);
+#endif
 		}
 		Serial.print("Connected. IP: ");
 		Serial.println(WiFi.localIP());
@@ -201,7 +206,11 @@ EspHomeBase::EspHomeBase()
 			if (_mqttclient->connect("esp32_test", getConfigParam("mqtt_user"), getConfigParam("mqtt_pass"))) {
 				while (!_mqttclient->connected()) {
 					Serial.print(".");
+#if defined(ARDUINO_ARCH_ESP32)
 					sleep(1);
+#elif defined(ARDUINO_ARCH_ESP8266)
+					delay(1);
+#endif
 				}
 				const char *tempStr = getConfigParam("mqtt_top_topic");
 				if (tempStr[0] != '/') {
@@ -317,12 +326,10 @@ void WiFiEvent(WiFiEvent_t event)
 	Serial.printf("[WiFi-event] event: %d\n", event);
 	switch (event) {
 		case SYSTEM_EVENT_STA_GOT_IP:
-		EspHomeBase::bootCount = 0;
 		EEPROM.write(1, 0);
 		EEPROM.commit();
 		break;
 	case SYSTEM_EVENT_STA_DISCONNECTED:
-		EspHomeBase::bootCount++;
 		uint8_t val = EEPROM.read(1);
 		EEPROM.write(1, (val + 1));
 		EEPROM.commit();
@@ -330,5 +337,21 @@ void WiFiEvent(WiFiEvent_t event)
 	}
 }
 #elif defined(ARDUINO_ARCH_ESP8266)
+void onWifiConnect(const WiFiEventStationModeGotIP &evt) {
+	EEPROM.write(1, 0);
+	EEPROM.commit();
+}
 
+void onWifiDisconnect(const WiFiEventStationModeDisconnected &evt) {
+	if (evt.reason == WIFI_DISCONNECT_REASON_AUTH_EXPIRE || evt.reason == WIFI_DISCONNECT_REASON_AUTH_FAIL || evt.reason == WIFI_DISCONNECT_REASON_NO_AP_FOUND) {
+		uint8_t val = EEPROM.read(1);
+		val++;
+		EEPROM.write(1, val);
+		EEPROM.commit();
+
+		if (val >= 5) {
+			ESP.restart();
+		}
+	}
+}
 #endif
