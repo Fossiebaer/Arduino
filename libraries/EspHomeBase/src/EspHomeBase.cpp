@@ -45,7 +45,7 @@ void EspHomeBase::changeMode(DeviceMode mode)
 	DeviceMode m = static_cast<DeviceMode>(v);
 	if (mode != m) {
 		devMode = mode;
-		EEPROM.write(3, (uint8_t)(mode & 0x0F));
+		EEPROM.write(2, (uint8_t)(mode & 0x0F));
 		EEPROM.commit();
 		ESP.restart();
 	}
@@ -70,7 +70,23 @@ void EspHomeBase::registerMqttCallback(const char * channel, MessageType type, M
 
 void EspHomeBase::registerHttpCallback(const char * url, WebRequestMethod method, HttpCallback cb)
 {
-	_server->addUrlHandler(url, method, cb);
+	if(_server != 0){
+		_server->addUrlHandler(url, method, cb);
+	}
+}
+
+void EspHomeBase::registerReplacerCallback(const char needle[], replaceHandler handler)
+{
+	if (_server != 0) {
+		_server->addReplaceHandler(needle, handler);
+	}
+}
+
+void EspHomeBase::replace(char * buf, char * src)
+{
+	if (_server != 0) {
+		_server->replacer(buf, src);
+	}
 }
 
 bool EspHomeBase::sendMqttMessage(MessageType cmd, const char * channel, const char * val)
@@ -140,6 +156,7 @@ EspHomeBase::EspHomeBase()
 		if (m <= 4 && strcmp(set, "1") == 0 ) {
 			Serial.println("Configuration present, starting normal mode...");
 			devMode = static_cast<DeviceMode>(m);
+			Serial.println(devMode);
 		}
 		else {
 			devMode = MODE_UNSPEC;

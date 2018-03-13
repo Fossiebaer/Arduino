@@ -44,6 +44,7 @@ void ConfigServer::startConfig()
 void ConfigServer::startWeb()
 {
 	if (server != 0) {
+		server->onNotFound(handleFile);
 		server->begin();
 	}
 }
@@ -170,7 +171,6 @@ int ConfigServer::replacer(char * buf, char * src)
 			feedTheDog();
 		}
 	}
-	Serial.println(buf);
 	return strlen(buf);
 }
 
@@ -178,5 +178,7 @@ void ConfigServer::feedTheDog()
 {
 #if defined(ARDUINO_ARCH_ESP8266)
 	ESP.wdtFeed();
+#elif defined(ARDUINO_ARCH_ESP32)
+	delay(1);
 #endif
 }
