@@ -266,7 +266,7 @@ EspHomeBase::EspHomeBase()
 		}
 	}
 	else if (devMode == MODE_AP_HTTP) {
-		WiFi.mode(WIFI_MODE_AP);
+		WiFi.mode(WIFI_AP);
 		WiFi.softAP("WS2812", getConfigParam("passwd"));
 		EspHomeBase::_server = ConfigServer::getInstance();
 		_server->startWeb();

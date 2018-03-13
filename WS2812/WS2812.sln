@@ -29,7 +29,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WiFi", "..\hardware\espress
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WiFiClientSecure", "..\hardware\espressif\esp32\libraries\WiFiClientSecure\WiFiClientSecure.vcxitems", "{316FF7FE-456A-4C56-B75F-31B03F772D9C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NeoPixelBus_by_Makuna", "..\libraries\NeoPixelBus_by_Makuna\NeoPixelBus_by_Makuna.vcxitems", "{D1B10D17-B2A9-4597-AA5A-EDAE3F2EB039}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NeoPixelBus_by_Makuna", "..\libraries\NeoPixelBus_by_Makuna\NeoPixelBus_by_Makuna.vcxitems", "{F981138A-E56C-440F-BC03-FBF33D536ADD}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -57,8 +57,8 @@ Global
 		..\libraries\EspHomeBase\EspHomeBase.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
 		..\libraries\NeoPixelBus_by_Makuna\NeoPixelBus_by_Makuna.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
 		..\libraries\PubSubClient\PubSubClient.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
-		..\libraries\NeoPixelBus_by_Makuna\NeoPixelBus_by_Makuna.vcxitems*{d1b10d17-b2a9-4597-aa5a-edae3f2eb039}*SharedItemsImports = 9
 		..\hardware\espressif\esp32\libraries\DNSServer\DNSServer.vcxitems*{eee3257c-86c1-4402-af56-18d6e37d64a7}*SharedItemsImports = 9
+		..\libraries\NeoPixelBus_by_Makuna\NeoPixelBus_by_Makuna.vcxitems*{f981138a-e56c-440f-bc03-fbf33d536add}*SharedItemsImports = 9
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86

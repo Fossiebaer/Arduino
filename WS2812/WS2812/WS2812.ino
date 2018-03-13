@@ -124,7 +124,7 @@ void setup() {
 	_server = EspHomeBase::getInstance();
 	// wait till EspHomeBase is ready and set up
 	while (!EspHomeBase::ready) {
-		sleep(5);
+		delay(5);
 	}
 	// set connection mode of EspHomeBase. This is for testing only. Normally one would use MODE_MQTT or MODE_HTTP
 	_server->changeMode(MODE_AP_HTTP);
