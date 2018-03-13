@@ -1,0 +1,76 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WS2812", "WS2812\WS2812.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArduinoJson", "..\libraries\ArduinoJson\ArduinoJson.vcxitems", "{129552E1-CE94-4AA1-ACF8-3A96F51A3113}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AsyncTCP", "..\libraries\AsyncTCP\AsyncTCP.vcxitems", "{008DB42A-763F-42DE-84A6-61A229B50B7F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ESPAsyncWebServer", "..\libraries\ESPAsyncWebServer\ESPAsyncWebServer.vcxitems", "{9C17D7A3-1A5B-4C4B-A690-66A4AE92A336}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PubSubClient", "..\libraries\PubSubClient\PubSubClient.vcxitems", "{B1C1850E-1B9D-4575-80D3-3855010C8723}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DNSServer", "..\hardware\espressif\esp32\libraries\DNSServer\DNSServer.vcxitems", "{EEE3257C-86C1-4402-AF56-18D6E37D64A7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EEPROM", "..\hardware\espressif\esp32\libraries\EEPROM\EEPROM.vcxitems", "{94F9E691-AA37-4862-AB1D-A6AD531B927A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ESP32", "..\hardware\espressif\esp32\libraries\ESP32\ESP32.vcxitems", "{4EE05FB3-A26B-4E42-846C-E4374A0A7415}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FS", "..\hardware\espressif\esp32\libraries\FS\FS.vcxitems", "{998B9137-5DF6-4404-B40E-D8533A0E8333}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SPIFFS", "..\hardware\espressif\esp32\libraries\SPIFFS\SPIFFS.vcxitems", "{744A262E-7806-4766-B717-251CC8892096}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EspHomeBase", "..\libraries\EspHomeBase\EspHomeBase.vcxitems", "{B3DB02C3-0ABD-4B7B-8B76-9FCF51EEF35C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FastLED", "..\libraries\FastLED\FastLED.vcxitems", "{C0D0FEB0-E51D-46C8-BEF0-BAD9ED80FC26}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WiFi", "..\hardware\espressif\esp32\libraries\WiFi\WiFi.vcxitems", "{7085F556-A245-4C1B-AF30-795D34B926B8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WiFiClientSecure", "..\hardware\espressif\esp32\libraries\WiFiClientSecure\WiFiClientSecure.vcxitems", "{316FF7FE-456A-4C56-B75F-31B03F772D9C}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\libraries\AsyncTCP\AsyncTCP.vcxitems*{008db42a-763f-42de-84a6-61a229b50b7f}*SharedItemsImports = 9
+		..\libraries\ArduinoJson\ArduinoJson.vcxitems*{129552e1-ce94-4aa1-acf8-3a96f51a3113}*SharedItemsImports = 9
+		..\hardware\espressif\esp32\libraries\WiFiClientSecure\WiFiClientSecure.vcxitems*{316ff7fe-456a-4c56-b75f-31b03f772d9c}*SharedItemsImports = 9
+		..\hardware\espressif\esp32\libraries\ESP32\ESP32.vcxitems*{4ee05fb3-a26b-4e42-846c-e4374a0a7415}*SharedItemsImports = 9
+		..\hardware\espressif\esp32\libraries\WiFi\WiFi.vcxitems*{7085f556-a245-4c1b-af30-795d34b926b8}*SharedItemsImports = 9
+		..\hardware\espressif\esp32\libraries\SPIFFS\SPIFFS.vcxitems*{744a262e-7806-4766-b717-251cc8892096}*SharedItemsImports = 9
+		..\hardware\espressif\esp32\libraries\EEPROM\EEPROM.vcxitems*{94f9e691-aa37-4862-ab1d-a6ad531b927a}*SharedItemsImports = 9
+		..\hardware\espressif\esp32\libraries\FS\FS.vcxitems*{998b9137-5df6-4404-b40e-d8533a0e8333}*SharedItemsImports = 9
+		..\libraries\ESPAsyncWebServer\ESPAsyncWebServer.vcxitems*{9c17d7a3-1a5b-4c4b-a690-66a4ae92a336}*SharedItemsImports = 9
+		..\libraries\PubSubClient\PubSubClient.vcxitems*{b1c1850e-1b9d-4575-80d3-3855010c8723}*SharedItemsImports = 9
+		..\libraries\EspHomeBase\EspHomeBase.vcxitems*{b3db02c3-0abd-4b7b-8b76-9fcf51eef35c}*SharedItemsImports = 9
+		..\libraries\FastLED\FastLED.vcxitems*{c0d0feb0-e51d-46c8-bef0-bad9ed80fc26}*SharedItemsImports = 9
+		..\hardware\espressif\esp32\libraries\DNSServer\DNSServer.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\hardware\espressif\esp32\libraries\EEPROM\EEPROM.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\hardware\espressif\esp32\libraries\ESP32\ESP32.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\hardware\espressif\esp32\libraries\FS\FS.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\hardware\espressif\esp32\libraries\SPIFFS\SPIFFS.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\hardware\espressif\esp32\libraries\WiFiClientSecure\WiFiClientSecure.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\hardware\espressif\esp32\libraries\WiFi\WiFi.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\libraries\ArduinoJson\ArduinoJson.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\libraries\AsyncTCP\AsyncTCP.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\libraries\ESPAsyncWebServer\ESPAsyncWebServer.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\libraries\EspHomeBase\EspHomeBase.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\libraries\FastLED\FastLED.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\libraries\PubSubClient\PubSubClient.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\hardware\espressif\esp32\libraries\DNSServer\DNSServer.vcxitems*{eee3257c-86c1-4402-af56-18d6e37d64a7}*SharedItemsImports = 9
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|x86.ActiveCfg = Debug|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|x86.Build.0 = Debug|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|x86.ActiveCfg = Release|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -46,9 +46,12 @@ public:
 	void changeMode(DeviceMode mode);
 	void registerMqttCallback(const char *channel, MessageType type, MqttCallback cb);
 	void registerHttpCallback(const char *url, WebRequestMethod method, HttpCallback cb);
+	void registerReplacerCallback(const char needle[], replaceHandler handler);
+	void replace(char * buf, char * src);
 	bool sendMqttMessage(MessageType cmd, const char *channel, const char *val);
 	void process();
 	static bool ready;
+	DeviceMode devMode;
 private:
 	EspHomeBase();
 	~EspHomeBase();
@@ -61,7 +64,6 @@ private:
 	static DNSServer *_dnsServer;
 	static WiFiClient *_netclient;
 	static PubSubClient *_mqttclient;
-	DeviceMode devMode;
 };
 #endif
 
