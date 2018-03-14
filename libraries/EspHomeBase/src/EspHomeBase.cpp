@@ -19,6 +19,8 @@ bool EspHomeBase::ready = false;
 char locBuf[500];
 bool subcribed;
 
+static int numAps = 0;
+
 int replaceFunc(char *buf, const char*needle);
 int getAPs(char *buf, const char *needle);
 
@@ -174,7 +176,12 @@ EspHomeBase::EspHomeBase()
 	}
 	if (devMode == MODE_CONFIG) {
 		Serial.println("Starting config mode...");
-		WiFi.mode(WIFI_AP_STA);
+		WiFi.mode(WIFI_STA);
+		WiFi.disconnect();
+		numAps = WiFi.scanNetworks();
+		WiFi.softAPdisconnect(true);
+		WiFi.disconnect(true);
+		WiFi.mode(WIFI_AP);
 		WiFi.softAP("ESP_Config_AP", "passwd0815");
 		EspHomeBase::_server = ConfigServer::getInstance();
 		IPAddress myIP = WiFi.softAPIP();
@@ -267,7 +274,7 @@ EspHomeBase::EspHomeBase()
 	}
 	else if (devMode == MODE_AP_HTTP) {
 		WiFi.mode(WIFI_AP);
-		WiFi.softAP("WS2812", getConfigParam("passwd"));
+		WiFi.softAP("WS2812-66", getConfigParam("passwd"));
 		EspHomeBase::_server = ConfigServer::getInstance();
 		_server->startWeb();
 	}
@@ -303,9 +310,11 @@ int replaceFunc(char *buf, const char*needle) {
 }
 
 int getAPs(char *buf, const char *needle) {
-	int n = WiFi.scanNetworks();
-	if (n > 0) {
-		for (int i = 0; i < n; i++) {
+	//int n = WiFi.scanNetworks();
+	Serial.print("Num APs found: ");
+	Serial.println(numAps);
+	if (numAps > 0) {
+		for (int i = 0; i < numAps; i++) {
 			Serial.print("Added AP: ");
 			Serial.println(WiFi.SSID(i).c_str());
 			strcat(buf, "<option>");
@@ -313,7 +322,7 @@ int getAPs(char *buf, const char *needle) {
 			strcat(buf, "</option>");
 		}
 	}
-	return n;
+	return numAps;
 }
 
 void EspHomeBase::mqttCallback(char * topic, byte * payload, unsigned int length)

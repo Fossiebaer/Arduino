@@ -82,7 +82,7 @@ private:
 	void feedTheDog();
 };
 
-#define MAX_PAGE_SIZE 6000
+#define MAX_PAGE_SIZE 4000
 extern char pageBuf[];
 
 #endif

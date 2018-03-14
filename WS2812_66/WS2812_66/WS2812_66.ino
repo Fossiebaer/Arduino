@@ -6,7 +6,6 @@ Author:	olli
 #include <NeoPixelBus.h>
 #include <NeoPixelBrightnessBus.h>
 #include <NeoPixelAnimator.h>
-#include <dummy.h>
 #include <EspHomeBase.h>
 
 
@@ -42,6 +41,7 @@ void AnimUpdate(const AnimationParam &param) {
 		animationState[param.index].EndingColor,
 		progress);
 	strip.SetPixelColor(param.index, updatedColor);
+  //ESP.wdtFeed();
 }
 
 // Delivers the website for controlling the leds
@@ -57,8 +57,7 @@ void handleGet(AsyncWebServerRequest  *req) {
 void handlePost(AsyncWebServerRequest *req) {
 	// if not yet done, start the led strip
 	if (!test) {
-		test = true;
-		strip.Begin();
+    test = true;
 	}
 	// get first color value from request
 	const char *color = req->arg("color").c_str();
@@ -85,20 +84,22 @@ void handlePost(AsyncWebServerRequest *req) {
 	uint8_t b2 = strtol(tempBuf, NULL, 16);
 	RgbColor c2(r2, g2, b2);
 
+  
+	
 	// Update all LEDs with new colors and start the animation
 	for (int i = 0; i < numPixel; i++) {
 		animationState[i].StartingColor = c;
 		animationState[i].EndingColor = c2;
 		animationState[i].Easeing = NeoEase::CubicInOut;
 		animations.StartAnimation(i, 250, AnimUpdate);
+    //ESP.wdtFeed();
 	}
 	strip.Show();
-	// return control website to browser
-	readFile("/ws2812.html", tempBuf, TEMP_SIZE);
-	_server->replace(pageBuf, tempBuf);
-	AsyncWebServerResponse *resp = req->beginResponse(200, "text/html", pageBuf);
-	req->send(resp);
-	
+ // return control website to browser
+  readFile("/ws2812.html", tempBuf, TEMP_SIZE);
+  _server->replace(pageBuf, tempBuf);
+  AsyncWebServerResponse *resp = req->beginResponse(200, "text/html", pageBuf);
+  req->send(resp);
 }
 
 // Replaces the placeholders in the website with the current color values
@@ -119,7 +120,13 @@ int colorReplacer(char *buf, const char *needle) {
 void setup() {
 	Serial.begin(115200);
 	Serial.println("");
-	
+  strip.Begin();
+  
+  RgbColor c(0,0,0);
+  for(int i = 0; i < numPixel; i++){
+    strip.SetPixelColor(i, c);
+  }
+  strip.Show();
 	// get instance of EspHomeBase
 	_server = EspHomeBase::getInstance();
 	// wait till EspHomeBase is ready and set up
@@ -142,14 +149,16 @@ void loop() {
 	// if animation is started, continue with next step
 	if (animations.IsAnimating()) {
 		animations.UpdateAnimations();
+		strip.Show();
 	}
 	// if animation has ended, swap color values and restart animation
-	else if(test){
+	else if (test) {
 		for (int i = 0; i < numPixel; i++) {
 			RgbColor temp = animationState[i].StartingColor;
 			animationState[i].StartingColor = animationState[i].EndingColor;
 			animationState[i].EndingColor = temp;
 			animations.StartAnimation(i, 250, AnimUpdate);
+      //ESP.wdtFeed();
 		}
 	}
 	delay(50);

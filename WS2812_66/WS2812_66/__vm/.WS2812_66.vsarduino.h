@@ -23,6 +23,7 @@
 #define ARDUINO 10805
 #define ARDUINO_ESP8266_GENERIC
 #define ARDUINO_ARCH_ESP8266
+#define LED_BUILTIN 2
 #define ESP8266
 #define __cplusplus 201103L
 #undef __cplusplus
@@ -109,6 +110,6 @@ typedef long __PTRDIFF_TYPE__;
 #define interrupts() sei()
 #define noInterrupts() cli()
 
-#include "WS2812.ino"
+#include "WS2812_66.ino"
 #endif
 #endif
