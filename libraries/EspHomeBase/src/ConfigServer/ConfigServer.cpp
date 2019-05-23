@@ -44,6 +44,7 @@ void ConfigServer::startConfig()
 void ConfigServer::startWeb()
 {
 	if (server != 0) {
+		server->on("/", HTTP_GET, handleIndex);
 		server->onNotFound(handleFile);
 		server->begin();
 	}
