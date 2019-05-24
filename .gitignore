@@ -1,0 +1,12 @@
+EspHomeBase.vcxitems
+EspHomeBase.vcxitems.filters
+*.sln
+.vs
+*.vcxproj
+WiFiRemote.vcxproj.filters
+WiFiRemote.vcxproj.user
+__vm
+WiFiRemote32.vcxproj.filters
+WS2812.vcxproj.filters
+WS2812_66.vcxproj
+WS2812_66.vcxproj.filters
