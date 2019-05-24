@@ -44,7 +44,6 @@ void ConfigServer::startConfig()
 void ConfigServer::startWeb()
 {
 	if (server != 0) {
-		server->on("/", HTTP_GET, handleIndex);
 		server->onNotFound(handleFile);
 		server->begin();
 	}
@@ -132,31 +131,6 @@ void ConfigServer::handleFile(AsyncWebServerRequest *req)
 		Serial.println("File found");
 		if (fileSize(req->url().c_str()) <= MAX_PAGE_SIZE) {
 			int sz = readFile(req->url().c_str(), pageBuf, MAX_PAGE_SIZE);
-			Serial.println("File opened.");
-			if (sz > -1) {
-				req->send(200, "text/html", pageBuf);
-			}
-			else {
-				req->send(500, "text/html", "File could not be opened");
-			}
-		}
-		else {
-			/// TODO: Handle larger files in chunks, meanwhile return internal server error
-			req->send(500, "text/html", "File is too large to be served!");
-		}
-	}
-	else {
-		req->send(404, "text/html", "File not found!");
-	}
-}
-
-void ConfigServer::handleIndex(AsyncWebServerRequest *req)
-{
-	Serial.print("Handle index.html ");
-	if (fileExists("index.html") {
-		Serial.println("File found");
-		if (fileSize("index.html") <= MAX_PAGE_SIZE) {
-			int sz = readFile("index.html", pageBuf, MAX_PAGE_SIZE);
 			Serial.println("File opened.");
 			if (sz > -1) {
 				req->send(200, "text/html", pageBuf);
