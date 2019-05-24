@@ -78,7 +78,6 @@ private:
 	static void handleConfig(AsyncWebServerRequest *req);
 	static void handleSet(AsyncWebServerRequest *req);
 	static void handleFile(AsyncWebServerRequest *req);
-	static void handleIndex(AsyncWebServerRequest *req);
 	static ConfigServer *_instanz;
 	void feedTheDog();
 };
