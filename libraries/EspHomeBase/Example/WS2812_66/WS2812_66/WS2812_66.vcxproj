@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C5F80730-F44F-4478-BDAE-6634EFC2CA88}</ProjectGuid>
+    <RootNamespace>WS2812_66</RootNamespace>
+    <ProjectName>WS2812_66</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>
+    </PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>
+    </PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+    <Import Project="..\..\libraries\ArduinoJson\ArduinoJson.vcxitems" Label="Shared" />
+    <Import Project="..\..\libraries\ESPAsyncTCP\ESPAsyncTCP.vcxitems" Label="Shared" />
+    <Import Project="..\..\libraries\ESPAsyncWebServer\ESPAsyncWebServer.vcxitems" Label="Shared" />
+    <Import Project="..\..\libraries\NeoPixelBus_by_Makuna\NeoPixelBus_by_Makuna.vcxitems" Label="Shared" />
+    <Import Project="..\..\libraries\PubSubClient\PubSubClient.vcxitems" Label="Shared" />
+    <Import Project="..\..\libraries\EspHomeBase\EspHomeBase.vcxitems" Label="Shared" />
+    <Import Project="C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\libraries\DNSServer\DNSServer.vcxitems" Label="Shared" />
+    <Import Project="C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\libraries\EEPROM\EEPROM.vcxitems" Label="Shared" />
+    <Import Project="C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\libraries\esp8266\esp8266.vcxitems" Label="Shared" />
+    <Import Project="C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\libraries\ESP8266WiFi\ESP8266WiFi.vcxitems" Label="Shared" />
+    <Import Project="C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\libraries\Hash\Hash.vcxitems" Label="Shared" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\WS2812_66;$(ProjectDir)..\..\libraries\ArduinoJson\src;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\libraries\DNSServer\src;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\libraries\EEPROM;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\libraries\esp8266\src;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\libraries\ESP8266WiFi\src;$(ProjectDir)..\..\libraries\ESPAsyncTCP\src;$(ProjectDir)..\..\libraries\ESPAsyncWebServer\src;$(ProjectDir)..\..\libraries\EspHomeBase\src;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\libraries\Hash\src;$(ProjectDir)..\..\libraries\NeoPixelBus_by_Makuna\src;$(ProjectDir)..\..\libraries\PubSubClient\src;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\libraries\SPI;$(ProjectDir)..\..\..\..\Programme\arduino-1.8.5\libraries;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\libraries;$(ProjectDir)..\..\libraries;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\cores\esp8266;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\cores\esp8266\libb64;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\cores\esp8266\spiffs;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\cores\esp8266\umm_malloc;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\variants\generic;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\libraries\ESP8266WiFi\src\include;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\libraries\Hash\src\sha1;$(ProjectDir)..\..\libraries\ArduinoJson;$(ProjectDir)..\..\libraries\ArduinoJson\src\ArduinoJson;$(ProjectDir)..\..\libraries\ArduinoJson\src\ArduinoJson\Data;$(ProjectDir)..\..\libraries\ArduinoJson\src\ArduinoJson\Deserialization;$(ProjectDir)..\..\libraries\ArduinoJson\src\ArduinoJson\Polyfills;$(ProjectDir)..\..\libraries\ArduinoJson\src\ArduinoJson\Serialization;$(ProjectDir)..\..\libraries\ArduinoJson\src\ArduinoJson\StringTraits;$(ProjectDir)..\..\libraries\ArduinoJson\src\ArduinoJson\TypeTraits;$(ProjectDir)..\..\libraries\EspHomeBase\src\ConfigServer;$(ProjectDir)..\..\libraries\EspHomeBase\src\FileAccess;$(ProjectDir)..\..\libraries\NeoPixelBus_by_Makuna\src\internal;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\tools\sdk\include;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\tools\sdk\lwip2\include;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\tools\sdk\libc\xtensa-lx106-elf\include;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\tools\xtensa-lx106-elf-gcc\1.20.0-26-gb404fb9-2\xtensa-lx106-elf\include\c++\4.8.2;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\tools\xtensa-lx106-elf-gcc\1.20.0-26-gb404fb9-2\xtensa-lx106-elf\include\c++\4.8.2\xtensa-lx106-elf;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\tools\xtensa-lx106-elf-gcc\1.20.0-26-gb404fb9-2\xtensa-lx106-elf\include;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\tools\xtensa-lx106-elf-gcc\1.20.0-26-gb404fb9-2\lib\gcc\xtensa-lx106-elf\4.8.2\include;C:\Users\fp50lov\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.4.1\tools\sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ProjectDir)__vm\.WS2812_66.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+      <PreprocessorDefinitions>__ESP8266_ESp8266__;__ESP8266_ESP8266__;_VMDEBUG=1;__ets__;ICACHE_FLASH;F_CPU=80000000L;LWIP_OPEN_SRC;TCP_MSS=536;ARDUINO=10805;ARDUINO_ESP8266_GENERIC;ARDUINO_ARCH_ESP8266;LED_BUILTIN=2;ESP8266;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="VisualMicro" />
+  </ItemGroup>
+  <PropertyGroup>
+    <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="WS2812_66.ino">
+      <FileType>CppCode</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="__vm\.WS2812_66.vsarduino.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
