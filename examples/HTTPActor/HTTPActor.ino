@@ -1,7 +1,13 @@
 /*
-Name:		WS2812.ino
+Name:		HTTPActor.ino
 Created:	12.03.2018 17:04:12
-Author:	olli
+Author:	Oliver Lenert
+
+Demonstrates the usage of EspHomeBase library and NeoPixelBus_by_Makuna
+for building an SmartHomeActor based on an ESP WiFi microcontroller
+
+This example starts a webserver and presents a website for controlling the connected LEDs
+
 */
 #include <NeoPixelBus.h>
 #include <NeoPixelBrightnessBus.h>
@@ -41,7 +47,6 @@ void AnimUpdate(const AnimationParam &param) {
 		animationState[param.index].EndingColor,
 		progress);
 	strip.SetPixelColor(param.index, updatedColor);
-  //ESP.wdtFeed();
 }
 
 // Delivers the website for controlling the leds
@@ -57,7 +62,7 @@ void handleGet(AsyncWebServerRequest  *req) {
 void handlePost(AsyncWebServerRequest *req) {
 	// if not yet done, start the led strip
 	if (!test) {
-    test = true;
+		test = true;
 	}
 	// get first color value from request
 	const char *color = req->arg("color").c_str();
@@ -84,35 +89,30 @@ void handlePost(AsyncWebServerRequest *req) {
 	uint8_t b2 = strtol(tempBuf, NULL, 16);
 	RgbColor c2(r2, g2, b2);
 
-  
-	
+
+
 	// Update all LEDs with new colors and start the animation
 	for (int i = 0; i < numPixel; i++) {
 		animationState[i].StartingColor = c;
 		animationState[i].EndingColor = c2;
 		animationState[i].Easeing = NeoEase::CubicInOut;
 		animations.StartAnimation(i, 250, AnimUpdate);
-    //ESP.wdtFeed();
 	}
 	strip.Show();
- // return control website to browser
-  readFile("/ws2812.html", tempBuf, TEMP_SIZE);
-  _server->replace(pageBuf, tempBuf);
-  AsyncWebServerResponse *resp = req->beginResponse(200, "text/html", pageBuf);
-  req->send(resp);
+	// return control website to browser
+	readFile("/ws2812.html", tempBuf, TEMP_SIZE);
+	_server->replace(pageBuf, tempBuf);
+	AsyncWebServerResponse *resp = req->beginResponse(200, "text/html", pageBuf);
+	req->send(resp);
 }
 
 // Replaces the placeholders in the website with the current color values
 int colorReplacer(char *buf, const char *needle) {
 	if (strcmp(needle, "%color%") == 0) {
 		sprintf(buf, "#%02x%02x%02x", animationState[0].StartingColor.R, animationState[0].StartingColor.G, animationState[0].StartingColor.B);
-		Serial.print("colorReplacer: ");
-		Serial.println(buf);
 	}
 	else if (strcmp(needle, "%color2%") == 0) {
 		sprintf(buf, "#%02x%02x%02x", animationState[0].EndingColor.R, animationState[0].EndingColor.G, animationState[0].EndingColor.B);
-		Serial.print("color2Replacer: ");
-		Serial.println(buf);
 	}
 }
 
@@ -120,21 +120,21 @@ int colorReplacer(char *buf, const char *needle) {
 void setup() {
 	Serial.begin(115200);
 	Serial.println("");
-  strip.Begin();
-  
-  RgbColor c(0,0,0);
-  for(int i = 0; i < numPixel; i++){
-    strip.SetPixelColor(i, c);
-  }
-  strip.Show();
+	strip.Begin();
+
+	RgbColor c(0, 0, 0);
+	for (int i = 0; i < numPixel; i++) {
+		strip.SetPixelColor(i, c);
+	}
+	strip.Show();
 	// get instance of EspHomeBase
 	_server = EspHomeBase::getInstance();
 	// wait till EspHomeBase is ready and set up
 	while (!EspHomeBase::ready) {
 		delay(5);
 	}
-	// set connection mode of EspHomeBase. This is for testing only. Normally one would use MODE_MQTT or MODE_HTTP
-	_server->changeMode(MODE_AP_HTTP);
+	// set connection mode of EspHomeBase. In this case connected to WiFi Network, presenting website
+	_server->changeMode(MODE_HTTP);
 
 	// register the control website with the webserver
 	_server->registerHttpCallback("/ws2812", HTTP_GET, handleGet);
@@ -158,7 +158,6 @@ void loop() {
 			animationState[i].StartingColor = animationState[i].EndingColor;
 			animationState[i].EndingColor = temp;
 			animations.StartAnimation(i, 250, AnimUpdate);
-      //ESP.wdtFeed();
 		}
 	}
 	delay(50);

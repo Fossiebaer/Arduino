@@ -55,6 +55,16 @@ int readFile(const char * name, char * buf, int max)
 	return -1;
 }
 
+int readFileChunked(AsyncWebServerRequest *req)
+{
+	if (fileExists(req->url().c_str())) {
+		AsyncWebServerResponse *response = req->beginResponse(SPIFFS, req->url().c_str());
+		req->send(response);
+		return 1;
+	}
+	return -1;
+}
+
 int writeFile(const char * name, const char * buf, int len)
 {
 	File f = SPIFFS.open(name, "w");

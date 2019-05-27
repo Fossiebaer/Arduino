@@ -9,6 +9,7 @@
 	#include "WProgram.h"
 #endif
 #include <FS.h>
+#include <ESPAsyncWebServer.h>
 #if defined(ARDUINO_ARCH_ESP32)
 #include <SPIFFS.h>
 #include <vfs_api.h>
@@ -21,6 +22,7 @@ bool fileExists(const char *name);
 int fileSize(const char *name);
 bool fsReady(void);
 int readFile(const char *name, char *buf, int max);
+int readFileChunked(AsyncWebServerRequest *req);
 int writeFile(const char *name, const char*buf, int len);
 const char *getConfigParam(const char *key);
 bool setConfigParam(const char *key, const char *value);
