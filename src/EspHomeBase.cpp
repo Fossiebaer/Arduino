@@ -211,6 +211,7 @@ EspHomeBase::EspHomeBase()
 		_server->addReplaceHandler("%mqtt_user%", replaceFunc);
 		_server->addReplaceHandler("%mqtt_top_topic%", replaceFunc);
 		_server->addReplaceHandler("%mqtt_dev_topic%", replaceFunc);
+		_server->addReplaceHandler("%hostname%", replaceFunc);
 		_server->startConfig();
 		uint8_t m = EEPROM.read(2);
 		devMode = static_cast<DeviceMode>(m);
