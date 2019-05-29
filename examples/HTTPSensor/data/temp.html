@@ -738,8 +738,8 @@ function startSocket()
 		var humAng = (obj.hum * 2.7) - 135;
 		var pressAng = ((obj.press - 900) * 1.35 ) - 135;
 		tempDial.setAttribute("transform", ("rotate(" + tempAng + tempRotCent));
-		humDial.setAttribute("transform", ("rotate=(" + humAng + humRotCent));
-		pressDial.setAttribute("transform", ("rotate=(" + pressAng + pressRotCent));
+		humDial.setAttribute("transform", ("rotate(" + humAng + humRotCent));
+		pressDial.setAttribute("transform", ("rotate(" + pressAng + pressRotCent));
 	}
 }
 startSocket();
