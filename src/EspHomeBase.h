@@ -33,6 +33,7 @@ enum MessageType {
 
 typedef void(*MqttCallback)(byte* payload, unsigned int length);
 typedef void(*HttpCallback)(AsyncWebServerRequest *req);
+typedef void(*SocketEventHandler)(AsyncWebSocket * server, AsyncWebSocketClient * client, AwsEventType type, void * arg, uint8_t *data, size_t len);
 
 typedef struct MqttCBEntry {
 	char channel[16];
@@ -48,8 +49,10 @@ public:
 	void registerMqttCallback(const char *channel, MessageType type, MqttCallback cb);
 	void registerHttpCallback(const char *url, WebRequestMethod method, HttpCallback cb);
 	void registerReplacerCallback(const char needle[], replaceHandler handler);
+	void registerSocketEventHandler(SocketEventHandler eh);
 	void replace(char * buf, char * src);
 	bool sendMqttMessage(MessageType cmd, const char *channel, const char *val);
+	bool sendPublicHttpUpdate(const char * msg);
 	void process();
 	static bool ready;
 	DeviceMode devMode;

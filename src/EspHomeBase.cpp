@@ -84,6 +84,14 @@ void EspHomeBase::registerReplacerCallback(const char needle[], replaceHandler h
 	}
 }
 
+void EspHomeBase::registerSocketEventHandler(SocketEventHandler eh)
+{
+	if (_server->socket != 0)
+	{
+		_server->socket->onEvent(eh);
+	}
+}
+
 void EspHomeBase::replace(char * buf, char * src)
 {
 	if (_server != 0) {
@@ -118,6 +126,16 @@ bool EspHomeBase::sendMqttMessage(MessageType cmd, const char * channel, const c
 		strcat(tempBuf, channel);
 		Serial.println(tempBuf);
 		return _mqttclient->publish(tempBuf, val);
+	}
+	return false;
+}
+
+bool EspHomeBase::sendPublicHttpUpdate(const char * msg)
+{
+	if (_server->socket != 0) 
+	{
+		_server->socket->printfAll(msg);
+		return true;
 	}
 	return false;
 }

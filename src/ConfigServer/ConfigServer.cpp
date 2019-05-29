@@ -8,6 +8,7 @@
 
 ConfigServer *ConfigServer::_instanz = 0;
 AsyncWebServer *ConfigServer::server = 0;
+AsyncWebSocket *ConfigServer::socket = 0;
 char pageBuf[MAX_PAGE_SIZE];
 replaceEntry ConfigServer::replaceList[10];
 int ConfigServer::replaceCount = 0;
@@ -17,7 +18,9 @@ char repBuf[500];
 ConfigServer::ConfigServer()
 {
 	static AsyncWebServer tempserver(80);
+	static AsyncWebSocket tempsocket("/ws");
 	server = &tempserver;
+	socket = &tempsocket;
 }
 
 ConfigServer::~ConfigServer()

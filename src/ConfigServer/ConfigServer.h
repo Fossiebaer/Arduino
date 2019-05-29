@@ -70,6 +70,7 @@ public:
 	int replacer(char * buf, char * src);
 	//static ESP8266WebServer *server;
 	static AsyncWebServer *server;
+	static AsyncWebSocket *socket;
 	bool addReplaceHandler(const char needle[], replaceHandler handler);
 private:
 	static replaceEntry replaceList[];
