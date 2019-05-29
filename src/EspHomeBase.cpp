@@ -227,6 +227,10 @@ EspHomeBase::EspHomeBase()
 		WifiConnectHandler = WiFi.onStationModeGotIP(&onWifiConnect);
 		WifiDisconnectHandler = WiFi.onStationModeDisconnected(&onWifiDisconnect);
 #endif
+		if(devMode == MODE_HTTP)
+		{
+			WiFi.hostname(getConfigParam("hostname"));	
+		}
 		WiFi.begin(getConfigParam("ssid_box"), getConfigParam("passwd"));
 		Serial.print("Connecting WiFi, reset ");
 		Serial.printf("%d", 5 - EEPROM.read(1));
