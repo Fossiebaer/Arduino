@@ -550,7 +550,7 @@
        style="fill:none;stroke:#9f0000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1.89999998;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#marker5239-0);marker-end:url(#Arrow1Mend-3)"
        d="M 143.06398,99.971725 V 79.971728"
        id="pointer_hum" 
-	   transform="rotate(-135, 143.06398,94.971725)"/>
+       transform="rotate(-135, 143.06398,94.971725)"/>
     <circle
        style="fill:url(#linearGradient5509-5);fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-miterlimit:1.89999998;stroke-dasharray:none;stroke-opacity:1"
        id="path5499-6"
@@ -708,20 +708,41 @@
   </g>
 </svg>
 <script type="text/javascript">
-var level = document.getElementById('quicksilver');
-let temp = -10;
-var height = 100 - (temp + 5);
-function animate(time){
-	if(temp < 85){
-		temp = temp + 0.5;
-	} else {
-		temp = -20;
+var tempRotCent = ", 118.96801,53.299853)";
+var humRotCent = ", 143.06398,94.971725)";
+var pressRotCent = ", 95, 95)";
+var tempDial = document.getElementById('pointer_temp');
+var humDial = document.getElementById('pointer_hum');
+var pressDial = document.getElementById('pointer_press');
+var ws = null;
+function startSocket()
+{
+	ws = new WebSocket('ws://'+document.location.host+'/ws',['arduino']);
+      	ws.binaryType = "arraybuffer";
+	ws.onclose = function(e)
+	{
+		setTimeout(function() {
+      		startSocket();
+    		}, 1000);
+	};
+	ws.onerror = function(e)
+	{
+		setTimeout(function() {
+      		startSocket();
+    		}, 1000);
+	};
+	ws.onmessage = function(e)
+	{
+		var obj = JSON.parse(e.data);
+		var tempAng = ((obj.temp + 20) * 2.7) - 135;
+		var humAng = (obj.hum * 2.7) - 135;
+		var pressAng = ((obj.press - 900) * 1.35 ) - 135;
+		tempDial.setAttribute("transform", ("rotate(" + tempAng + tempRotCent));
+		humDial.setAttribute("transform", ("rotate=(" + humAng + humRotCent));
+		pressDial.setAttribute("transform", ("rotate=(" + pressAng + pressRotCent));
 	}
-	height = 100 - (temp + 5);
-	level.setAttributeNS(null, 'd', "M 100,125 V " + height);
-	requestAnimationFrame(animate);
 }
-requestAnimationFrame(animate);
+startSocket();
 </script>
 </body>
 </html>
