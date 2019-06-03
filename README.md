@@ -22,7 +22,17 @@ the configuration for devices based on this library is stored in a Json-file loc
 Web based configuration:
 if the device has an empty configuration file or connection the the configured wireless LAN fails too often, the library starts an wireless access point, a webserver and delivers the configuration webpage. The webpage is user-defined. So it can have all required parameters.
 
+MQTT-Publish:
+Deliver readings from sensors and status or acknoledges from actors.
 
+MQTT-Subscribe:
+Receive commands for actors or requests for sensors
+
+Web Pages:
+To send controlmessages to actors via HTTP.
+
+WebSockets:
+To read sensors via HTTP.
  
 # Usage and Documentation
 The library contains some examples for demonstrating the usage of the library. Detailed information about usage as well as the documentation can be found in the wiki.
