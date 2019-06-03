@@ -47,7 +47,9 @@ void ConfigServer::startConfig()
 void ConfigServer::startWeb()
 {
 	if (server != 0) {
-		server->onNotFound(handleFile);
+        server->addHandler(socket);
+        server->serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
+		//server->onNotFound(handleFile);
 		server->begin();
 	}
 }

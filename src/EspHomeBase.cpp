@@ -228,11 +228,12 @@ EspHomeBase::EspHomeBase()
 		WifiConnectHandler = WiFi.onStationModeGotIP(&onWifiConnect);
 		WifiDisconnectHandler = WiFi.onStationModeDisconnected(&onWifiDisconnect);
 #endif
-		if(devMode == MODE_HTTP)
-		{
-			WiFi.hostname(getConfigParam("hostname"));	
-		}
+        if (devMode == MODE_HTTP)
+        {
+            WiFi.hostname(getConfigParam("hostname"));
+        }
 		WiFi.begin(getConfigParam("ssid_box"), getConfigParam("passwd"));
+      
 		Serial.print("Connecting WiFi, reset ");
 		Serial.printf("%d", 5 - EEPROM.read(1));
 		Serial.println(" times to enter config mode.");
@@ -244,6 +245,10 @@ EspHomeBase::EspHomeBase()
 			delay(1);
 #endif
 		}
+        if (devMode == MODE_HTTP)
+        {
+            WiFi.hostname(getConfigParam("hostname"));
+        }
 		Serial.print("Connected. IP: ");
 		Serial.println(WiFi.localIP());
 		if (devMode == MODE_MQTT) {
@@ -301,8 +306,15 @@ EspHomeBase::EspHomeBase()
 		EspHomeBase::_server = ConfigServer::getInstance();
 		_server->startWeb();
 	}
-	ready = true;
-	Serial.println("EspHomeBase ready!");
+    if (devMode != MODE_CONFIG)
+    {
+        ready = true;
+        Serial.println("EspHomeBase ready!");
+    }
+    else
+    {
+        Serial.println("Waiting for configuration");
+    }
 }
 
 EspHomeBase::~EspHomeBase()

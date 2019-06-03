@@ -19,7 +19,7 @@ Adafruit_BME280 sensor;
 // the variables for the ambient data
 float temp, hum, press; 
 
-StaticJsonBuffer<200> jsonBuffer;
+StaticJsonBuffer<100> jsonBuffer;
 JsonObject& root = jsonBuffer.createObject();
 int numConn = 0;
 
@@ -29,25 +29,31 @@ void sendUpdate()
 {
     char tmp[100];
     root.printTo(tmp);
+    Serial.println(tmp);
     _server->sendPublicHttpUpdate(tmp);
-    free(tmp);
 }
 
 void readAmbientValues()
 {
     readingSensor = true;
     char tmp[10];
-    sprintf(tmp, "%.0f", sensor.readTemperature());
-    root["temp"] = tmp;
-    sprintf(tmp, "%.0f", (sensor.readPressure() / 100.0F));
-    root["press"] = tmp;
-    sprintf(tmp, "%.0f", sensor.readHumidity());
-    root["hum"] = tmp;
-    if(numConn > 0)
-    {
-        sendUpdate();
-    }
-    free(tmp);
+    char consoleMsg[40];
+    Serial.println("Start reading...");
+    //sprintf(tmp, "%.0f", sensor.readTemperature());
+    //sprintf(consoleMsg, "Temperatur read: %s °C", tmp);
+    //Serial.println(consoleMsg);
+    root.set("temp", sensor.readTemperature());
+    delay(1);
+    //sprintf(tmp, "%.0f", (sensor.readPressure() / 100.0F));
+    //sprintf(consoleMsg, "Pressure read: %s hPa", tmp);
+    //Serial.println(consoleMsg);
+    root.set("press", (sensor.readPressure() / 100.0f));
+    //sprintf(tmp, "%.0f", sensor.readHumidity());
+    //sprintf(consoleMsg, "Humidity read: %s \%rel", tmp);
+    //Serial.println(consoleMsg);
+    root.set("hum", sensor.readHumidity());
+    delay(1);
+    sendUpdate();
     readingSensor = false;
 }
 
@@ -61,7 +67,7 @@ void wsEventHandler(AsyncWebSocket * server, AsyncWebSocketClient * client, AwsE
              root.printTo(tmp);
              client->printf(tmp);
              numConn++;
-             free(tmp);
+             // free(tmp);
         }
     }
     else if (type == WS_EVT_DISCONNECT)
@@ -84,16 +90,15 @@ void setup()
     _server->changeMode(MODE_HTTP);
 
     _server->registerSocketEventHandler(&wsEventHandler);
-
-	unsigned status;
-    	
-	status = sensor.begin();
-	if (!status) 
-	{
-		Serial.println("Could not find a valid BME280 sensor, check wiring, address, sensor ID!");
-		while (1);
-	}
-
+    //Wire.begin(2, 1);
+	unsigned status = false;
+    while (!status)
+    {
+        delay(10);
+        Serial.println("No sensor, rescan...");
+	    status = sensor.begin();
+    }
+    Serial.println("Sensor found, going on...");
 	char tmp[10];
 	sprintf(tmp, "%.0f", sensor.readTemperature());
 	root["temp"] = tmp;
