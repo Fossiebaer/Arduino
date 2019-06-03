@@ -13,7 +13,15 @@ EspHomeBase relies on the following libraries:
 The latter requires some libraries itself:
  - ESPAsyncTcp for ESP8266 or
  - AsyncTcp for ESP32
+
+# Features
+Json-file based configuration:
+the configuration for devices based on this library is stored in a Json-file located on SPIFFS filesystem on the controller. You can either upload a preconfigured file to the device or configure the device via configuration webpage.
+
+Web based configuration:
+if the device has an empty configuration file or connection the the configured wireless LAN fails too often, the library starts an wireless access point, a webserver and delivers the configuration webpage. The webpage is user-defined. So it can have all required parameters.
+
+
  
-# Usage an Documentation
-The library contains some examples for demonstrating the usage of the library. Detailed information as well as the documentation 
-can be found in the wiki.
+# Usage and Documentation
+The library contains some examples for demonstrating the usage of the library. Detailed information about usage as well as the documentation can be found in the wiki.
