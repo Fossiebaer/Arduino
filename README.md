@@ -8,9 +8,9 @@ To reach this goal, the library uses some libraries, created by other authors an
 # Prerequisites
 EspHomeBase relies on the following libraries:
  - PubSubClient
+ - ArduinoJson
  - ESPAsyncWebServer
 The latter requires some libraries itself:
- - ArduinoJson (version 5, ESPAsyncWebServer in the current version is not compatible with ArduinoJson version 6)
  - ESPAsyncTcp for ESP8266 or
  - AsyncTcp for ESP32
  
